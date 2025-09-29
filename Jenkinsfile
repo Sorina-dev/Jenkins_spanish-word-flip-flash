@@ -35,7 +35,22 @@ pipeline {
                         sh 'npx vitest run --reporter=verbose'
                     }
                 }
+                //Integration tests with Playwright
+                stage('e2e tests') {
+                    agent{
+                        docker{
+                            image 'mcr.microsoft.com/playwright:v1.54.2-jammy' // Use the version for playwright that is presetn in package.json file
+                            reuseNode true
+                        }
             }
+                    steps {
+                        sh 'npm ci'
+                        sh 'npm run build'
+                        sh 'npx playwright test'
+                        //sh 'npx playwright test --reporter=list'
+                        // To view the report, uncomment the line below
+                        // sh 'npx playwright show-report'
+                    }
         }
 
         stage('deploy') {
