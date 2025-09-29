@@ -43,7 +43,7 @@ pipeline {
                             reuseNode true
                         }
             }
-                    steps {}
+                    steps {
                         sh 'npx playwright test'
                         //sh 'npx playwright test --reporter=list'
                         // To view the report, uncomment the line below
@@ -63,4 +63,8 @@ pipeline {
             }
         }
     }
-}
+        }
+
+        }   
+
+}       
