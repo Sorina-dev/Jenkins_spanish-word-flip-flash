@@ -45,14 +45,12 @@ pipeline {
             }
                     steps {
                         sh 'npx playwright test'
-                        sh 'npm ci'
-                        sh 'npm run build'
                         //sh 'npx playwright test --reporter=list'
                         // To view the report, uncomment the line below
                         // sh 'npx playwright show-report'
                     }
         }
-
+            }
         stage('deploy') {
             agent {
                 docker {
@@ -65,7 +63,7 @@ pipeline {
             }
         }
     }
-        }
+        
 
         }   
 
