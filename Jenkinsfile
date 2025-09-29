@@ -50,6 +50,7 @@ pipeline {
                         // sh 'npx playwright show-report'
                     }
         }
+            }
             
         stage('deploy') {
             agent {
@@ -63,8 +64,6 @@ pipeline {
             }
         }
     }
-      
-
-        }   
+        }
     }
-}       
+  
