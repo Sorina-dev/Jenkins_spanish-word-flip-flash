@@ -43,9 +43,7 @@ pipeline {
                             reuseNode true
                         }
             }
-                    steps {
-                        sh 'npm ci'
-                        sh 'npm run build'
+                    steps {}
                         sh 'npx playwright test'
                         //sh 'npx playwright test --reporter=list'
                         // To view the report, uncomment the line below
