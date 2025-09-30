@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -19,37 +18,30 @@ pipeline {
             }
         }
 
-        stage('test') {
-            parallel {
-                stage('unit tests') {
-                    agent {
-                        docker {
-                            image 'node:22-alpine'
-                            reuseNode true
-                        }
-                    }
-                    steps {
-                        // Dependencies and build already exist from previous stage
-                        sh 'npx vitest run --reporter=verbose'
-                    }
+        stage('unit tests') {
+            agent {
+                docker {
+                    image 'node:22-alpine'
+                    reuseNode true
                 }
+            }
+            steps {
+                sh 'npx vitest run --reporter=verbose'
+            }
+        }
 
-                stage('integration tests') {
-                    agent {
-                        docker {
-                            image 'mcr.microsoft.com/playwright:v1.54.2-jammy'
-                            reuseNode true
-                        }
-                    }
-                    steps {
-                        // Only install if node_modules doesn't exist or force clean install
-                        sh 'rm -rf node_modules package-lock.json'
-                        sh 'npm ci'
-                        sh 'npm run build'
-                        sh 'npx playwright test'
-                        sh 'npx vitest run --reporter=verbose'
-                    }
+        stage('integration tests') {
+            agent {
+                docker {
+                    image 'mcr.microsoft.com/playwright:v1.54.2-jammy'
+                    reuseNode true
                 }
+            }
+            steps {
+                sh 'rm -rf node_modules package-lock.json'
+                sh 'npm ci'
+                sh 'npm run build'
+                sh 'npx playwright test'
             }
         }
 
@@ -77,7 +69,6 @@ pipeline {
             }
             steps {
                 sh 'npx playwright test'
-                sh 'npx vitest run --reporter=verbose'
             }
         }
     }
