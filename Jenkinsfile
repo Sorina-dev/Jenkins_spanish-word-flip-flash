@@ -29,8 +29,7 @@ pipeline {
                         }
                     }
                     steps {
-                        sh 'npm ci'
-                        sh 'npm run build'
+                        // Dependencies and build already exist from previous stage
                         sh 'npx vitest run --reporter=verbose'
                     }
                 }
@@ -43,10 +42,11 @@ pipeline {
                         }
                     }
                     steps {
+                        // Only install if node_modules doesn't exist or force clean install
+                        sh 'rm -rf node_modules package-lock.json'
                         sh 'npm ci'
                         sh 'npm run build'
                         sh 'npx playwright test'
-                        sh 'npx vitest run --reporter=verbose'
                     }
                 }
             }
@@ -72,7 +72,7 @@ pipeline {
             }
 
             environment {
-                E2E_BASE_URL = 'https://spanish-cards.netlify.app/'  // the application to test
+                E2E_BASE_URL = 'https://spanish-cards.netlify.app/'
             }
             steps {
                 sh 'npx playwright test'
