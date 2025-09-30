@@ -47,6 +47,7 @@ pipeline {
                         sh 'npm ci'
                         sh 'npm run build'
                         sh 'npx playwright test'
+                        sh 'npx vitest run --reporter=verbose'
                     }
                 }
             }
@@ -76,6 +77,7 @@ pipeline {
             }
             steps {
                 sh 'npx playwright test'
+                sh 'npx vitest run --reporter=verbose'
             }
         }
     }
