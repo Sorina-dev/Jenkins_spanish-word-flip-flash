@@ -84,7 +84,7 @@ pipeline {
                      reportTitles: 'E2E Test Report',
                      userWrapperFileDirectly: true
                   ]) 
-                  junit stdioRetention: 'ALL', testResults: 'reports-e2e/junit/results.xml'
+                  //junit stdioRetention: 'ALL', testResults: 'reports-e2e/junit/results.xml'
                } 
         }
     }
