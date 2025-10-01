@@ -14,7 +14,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,  //workers processes to use for parallel execution
   reporter: [
     ['list'],
-    ['github']
+    ['github'],
     ['junit', { outputFile: 'reports-e2e/junit.xml' }],  //standard JUnit XML format
     ['html', { outputFolder: 'reports-e2e/html', open: 'never' }], //but actually will be used html report
   ],
